@@ -28,7 +28,7 @@ class AgentAI:
             self.agent = self.__create_chat_agent(model)
         else:
             self.agent = model
-        return
+        return self.agent
 
     def __create_chat_agent(self, model):
         agent_model = model.start_chat(history=[])

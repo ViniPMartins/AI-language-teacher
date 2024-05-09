@@ -3,35 +3,28 @@ import random
 import time
 import os
 from AgentAI import AgentAI
+#import google.generativeai as genai
 
-API_KEY_GEMINI = st.secrets("API_KEY_GEMINI")
+API_KEY_GEMINI = st.secrets["API_KEY_GEMINI"]
 
 chat_instruction = '''Você está ajudando uma pessoa a aprender ingles
 e tem a tarefa de manter uma conversa interessante de descontraida no idioma inglês.
 Priorize frases curtas e fáceis de ler'''
-chatbot = AgentAI(API_KEY_GEMINI).create_new_agent(chat_instruction, chat_agent=True)
+chatbot = AgentAI(API_KEY_GEMINI)
+chatbot.create_new_agent(chat_instruction, chat_agent=True)
 
 aval_instruction = '''Você é um professor de inglês e avalia se a frase escrita está correta.
 Avalie de forma gramatical se a frase está correta de acordo com as regras gramaticais da lingua inglesa.
 Caso não esteja correto, Reponda em português onde está o erro e reescreva a frase de forma correta.
 Caso esteja correta, responda: Muito bem, frase correta!'''
-avaliador = AgentAI(API_KEY_GEMINI).create_new_agent(aval_instruction, chat_agent=False)
+avaliador = AgentAI(API_KEY_GEMINI)
+avaliador.create_new_agent(aval_instruction, chat_agent=False)
 
 trad_instruction = '''Você é tradutor de idiomas especialista em tradução das linguas inglesa e portugues.
 Após cada frase, se a frase estiver em portugues, responda apenas a tradução em ingles.
 Se a frase estiver em ingles, responda apenas a tradução em portugues.'''
-tradutor = AgentAI(API_KEY_GEMINI).create_new_agent(trad_instruction, chat_agent=False)
-
-# Streamed response emulator
-# def randon_response():
-#     response = random.choice(
-#         [
-#             "Hello there! How can I assist you today?",
-#             "Hi, human! Is there anything I can help you with?",
-#             "Do you need help?",
-#         ]
-#     )
-#     return response
+tradutor = AgentAI(API_KEY_GEMINI)
+tradutor.create_new_agent(trad_instruction, chat_agent=False)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -56,7 +49,8 @@ with st.sidebar:
                 st.markdown("Começe a conversa no chat")
             else:
                 avaliacao = avaliador.response(st.session_state.last_message)    
-                st.markdown(avaliacao)
+                st.markdown(f"Mensagem: {st.session_state.last_message}")
+                st.markdown(f"Avaliação: {avaliacao}")
 
     with st.expander("Tradução Instantânea"):
         sentence = st.text_input("Insira o que deseja traduzir")
