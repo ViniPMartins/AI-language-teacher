@@ -21,7 +21,8 @@ class AgentAI:
         if model_name == "gemini-1.5-pro-latest":
             system_instruction = agent_instruction
             model = genai.GenerativeModel(model_name=model_name,
-                                        generation_config=generation_config)
+                                        generation_config=generation_config,
+                                        system_instruction=agent_instruction)
         else:
             model = genai.GenerativeModel(model_name=model_name,
                             generation_config=generation_config)
