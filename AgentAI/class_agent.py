@@ -10,7 +10,7 @@ class AgentAI:
 
     def create_new_agent(self, agent_instruction, chat_agent=False, model_name='gemini-1.0-pro'):
         generation_config = {
-            "temperature": 1,
+            "temperature": 0.7,
             "top_p": 0.95,
             "top_k": 0,
             "max_output_tokens": 8192,
@@ -21,8 +21,7 @@ class AgentAI:
         if model_name == "gemini-1.5-pro-latest":
             system_instruction = agent_instruction
             model = genai.GenerativeModel(model_name=model_name,
-                                        generation_config=generation_config,
-                                        system_instruction=system_instruction)
+                                        generation_config=generation_config)
         else:
             model = genai.GenerativeModel(model_name=model_name,
                             generation_config=generation_config)
