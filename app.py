@@ -31,6 +31,12 @@ def create_agents(lang_nat, lang_practice):
 
     return chatbot, avaliador, tradutor
 
+st.set_page_config(
+   page_title="Language Teacher",
+   page_icon="📚",
+   layout="wide",
+)
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
