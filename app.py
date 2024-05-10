@@ -5,26 +5,31 @@ import os
 from AgentAI import AgentAI
 #import google.generativeai as genai
 
-API_KEY_GEMINI = st.secrets["API_KEY_GEMINI"]
+API_KEY_CHATBOT = st.secrets["API_KEY_CHATBOT"]
+API_KEY_AVALIA = st.secrets["API_KEY_AVALIA"]
+API_KEY_TRADUTOR = st.secrets["API_KEY_TRADUTOR"]
 
-chat_instruction = '''Você está ajudando uma pessoa a aprender ingles
-e tem a tarefa de manter uma conversa interessante de descontraida no idioma inglês.
-Priorize frases curtas e fáceis de ler'''
-chatbot = AgentAI(API_KEY_GEMINI)
-chatbot.create_new_agent(chat_instruction, chat_agent=True)
+def create_agents(lang_nat, lang_practice):
+    chat_instruction = f'''Você está ajudando uma pessoa a aprender {lang_practice}
+    e tem a tarefa de manter uma conversa interessante de descontraida no idioma {lang_practice}.
+    Priorize frases curtas e fáceis de ler'''
+    chatbot = AgentAI(API_KEY_CHATBOT)
+    chatbot.create_new_agent(chat_instruction, chat_agent=True)
 
-aval_instruction = '''Você é um professor de inglês e avalia se a frase escrita está correta.
-Avalie de forma gramatical se a frase está correta de acordo com as regras gramaticais da lingua inglesa.
-Caso não esteja correto, Reponda em português onde está o erro e reescreva a frase de forma correta.
-Caso esteja correta, responda: Muito bem, frase correta!'''
-avaliador = AgentAI(API_KEY_GEMINI)
-avaliador.create_new_agent(aval_instruction, chat_agent=False)
+    aval_instruction = f'''Você é um professor de {lang_practice} e avalia se a frase escrita está correta.
+    Avalie de forma gramatical se a frase está correta de acordo com as regras gramaticais do {lang_practice}.
+    Caso não esteja correto, Reponda em {lang_nat} onde está o erro e reescreva a frase de forma correta.
+    Caso esteja correta, responda: Muito bem, frase correta!, no idioma {lang_nat}'''
+    avaliador = AgentAI(API_KEY_AVALIA)
+    avaliador.create_new_agent(aval_instruction, chat_agent=False)
 
-trad_instruction = '''Você é tradutor de idiomas especialista em tradução das linguas inglesa e portugues.
-Após cada frase, se a frase estiver em portugues, responda apenas a tradução em ingles.
-Se a frase estiver em ingles, responda apenas a tradução em portugues.'''
-tradutor = AgentAI(API_KEY_GEMINI)
-tradutor.create_new_agent(trad_instruction, chat_agent=False)
+    trad_instruction = f'''Você é tradutor de idiomas especialista em tradução das linguas {lang_practice} e {lang_nat}.
+    Após cada frase, se a frase estiver em {lang_nat}, responda apenas a tradução em {lang_practice}.
+    Se a frase estiver em {lang_practice}, responda apenas a tradução em {lang_nat}.'''
+    tradutor = AgentAI(API_KEY_TRADUTOR)
+    tradutor.create_new_agent(trad_instruction, chat_agent=False)
+
+    return chatbot, avaliador, tradutor
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -39,12 +44,13 @@ with st.sidebar:
     st.markdown("Desafio Alura")
 
     with st.popover("Escolha a Lingua"):
-        lingua_nativa = st.selectbox("Lingua Nativa", ("Portuguese", "English"))
-        lingua_praticar = st.selectbox("Lingua que deseja praticar", ("Portuguese", "English"))
+        lingua_nativa = st.text_input("Digite sua Lingua Nativa", "Portugues")
+        lingua_praticar = st.text_input("Lingua que deseja praticar", "Inglês")
+
+    chatbot, avaliador, tradutor = create_agents(lingua_nativa, lingua_praticar)
 
     with st.expander("Avaliar última Frase enviada"):
-        on = st.toggle("Ativar avaliação")
-        if on:
+        if st.button("Avaliar"):
             if st.session_state.last_message == '':
                 st.markdown("Começe a conversa no chat")
             else:
