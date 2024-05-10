@@ -10,10 +10,10 @@ class AgentAI:
 
     def create_new_agent(self, agent_instruction, chat_agent=False, model_name='gemini-1.0-pro'):
         generation_config = {
-            "temperature": 0.7,
+            "temperature": 1,
             "top_p": 0.95,
             "top_k": 0,
-            "max_output_tokens": 8192,
+            "max_output_tokens": 1000,
         }
 
         self.chat_agent == chat_agent
