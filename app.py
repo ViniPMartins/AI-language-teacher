@@ -67,7 +67,7 @@ with st.sidebar:
 
 # Tela de Chat
 st.title("Chat Lang-Teacher")
-st.markdown("Converse com a IA para praticar seu inglês!")
+st.markdown(f"Converse com a IA para praticar!")
 
 def response_generator(message):
     for word in message.split():
