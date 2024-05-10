@@ -10,7 +10,7 @@ Acesse através do link [https://ai-lang-teacher.streamlit.app](https://ai-lang-
 
 ## Funcionalidades
 
-1. **Chat em Inglês**: Os usuários podem praticar conversando com o agente de IA.
+1. **Chat**: Os usuários podem praticar conversando com o agente de IA.
 2. **Avaliação de Frases**: O site pode avaliar a gramática e a estrutura das frases escritas pelos usuários.
 3. **Tradução de Frases**: Qualquer frase pode ser traduzida para a lingua que está praticando.
 
