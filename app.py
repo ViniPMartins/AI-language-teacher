@@ -21,13 +21,13 @@ def create_agents(lang_nat, lang_practice):
     Caso não esteja correto, Reponda em {lang_nat} onde está o erro e reescreva a frase de forma correta.
     Caso esteja correta, responda: Muito bem, frase correta!, no idioma {lang_nat}'''
     avaliador = AgentAI(API_KEY_AVALIA)
-    avaliador.create_new_agent(aval_instruction, chat_agent=False)
+    avaliador.create_new_agent(aval_instruction, chat_agent=False, model_name='gemini-1.5-pro-latest')
 
     trad_instruction = f'''Você é tradutor de idiomas especialista em tradução das linguas {lang_practice} e {lang_nat}.
     Após cada frase, se a frase estiver em {lang_nat}, responda apenas a tradução em {lang_practice}.
     Se a frase estiver em {lang_practice}, responda apenas a tradução em {lang_nat}.'''
     tradutor = AgentAI(API_KEY_TRADUTOR)
-    tradutor.create_new_agent(trad_instruction, chat_agent=False)
+    tradutor.create_new_agent(trad_instruction, chat_agent=False, model_name='gemini-1.5-pro-latest')
 
     return chatbot, avaliador, tradutor
 
