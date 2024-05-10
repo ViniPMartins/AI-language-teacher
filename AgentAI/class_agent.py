@@ -8,7 +8,7 @@ class AgentAI:
         self.agent = None
         genai.configure(api_key=self.gemini_key)
 
-    def create_new_agent(self, agent_instruction, chat_agent=False, model_name='gemini-1.0-pro'):
+    def create_new_agent(self, agent_instruction, chat_agent=False, model_name='gemini-1.0-pro-latest'):
         generation_config = {
             "temperature": 1,
             "top_p": 0.95,
