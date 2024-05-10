@@ -1,5 +1,7 @@
 # AI-language-teacher
 
+![image demonstration](demonstration.gif)
+
 Este projeto é um site interativo que atua como um professor de linguas virtual onde você escolhe qual lingua praticar. Ele permite que os usuários conversem via chat, avaliem frases escritas e traduzam qualquer frase, tudo na mesma interface.
 
 ### 🚀 URL da aplicação Funcionando
