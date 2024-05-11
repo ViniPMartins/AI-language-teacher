@@ -41,8 +41,8 @@ class AgentAI:
 
     def response(self, prompt):
         if self.chat_agent:
-            convo.send_message(prompt)
-            return convo.last.text
+            self.agent.send_message(prompt)
+            return self.agent.last.text
         else:
             response = self.agent.generate_content(prompt)
             return response.text
