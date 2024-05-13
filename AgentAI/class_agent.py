@@ -36,7 +36,7 @@ class AgentAI:
     def __create_chat_agent(self, model, model_name, agent_instruction):
         agent_model = model.start_chat(history=[])
         if model_name != "gemini-1.5-pro-latest":
-            agent_model.response(agent_instruction)
+            agent_model.send_message(agent_instruction)
         return agent_model
 
     def response(self, prompt):
