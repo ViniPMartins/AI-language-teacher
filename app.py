@@ -11,7 +11,8 @@ API_KEY_TRADUTOR = st.secrets["API_KEY_TRADUTOR"]
 
 def create_agents(lang_nat, lang_practice):
     chat_instruction = f'''Você está ajudando uma pessoa a aprender {lang_practice}
-    e tem a tarefa de manter uma conversa interessante de descontraida no idioma {lang_practice}.
+    e tem a tarefa de manter uma conversa interessante de descontraida no idioma {lang_practice}
+    Responda as perguntas apenas em {lang_practice}.
     Priorize frases curtas e fáceis de ler'''
     chatbot = AgentAI(API_KEY_CHATBOT)
     chatbot.create_new_agent(chat_instruction, chat_agent=True)
